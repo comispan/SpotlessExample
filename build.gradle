@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id "com.diffplug.spotless" version "6.19.0"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+spotless {
+    java {
+        target fileTree('.') {
+            include '**/*.java'
+            exclude '**/build/**', '**/build-*/**'
+        }
+        googleJavaFormat('1.17.0').reflowLongStrings()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
